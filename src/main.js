@@ -1,4 +1,4 @@
-import { engineInit, EngineObject, vec2, randColor, cameraPos, canvasFixedSize, drawRect, Color, mousePos, clamp } from "littlejsengine";
+import { engineInit, EngineObject, vec2, randColor, cameraPos, canvasFixedSize, drawRect, Color, mousePos, clamp, setCameraPos, setCanvasFixedSize } from "littlejsengine";
 
 const levelSize = vec2(38, 20);
 
@@ -15,7 +15,7 @@ class Paddle extends EngineObject {
 
 ///////////////////////////////////////////////////////////////////////////////
 function gameInit() {
-    canvasFixedSize.set(1280, 720);
+    setCanvasFixedSize(vec2(1280, 720));
 
     const brickWidth = 2;
     const brickHeight = 1;
@@ -27,7 +27,7 @@ function gameInit() {
         }
     }
 
-    cameraPos.set(levelSize.x / 2, levelSize.y / 2);
+    setCameraPos(levelSize.scale(0.5));
 
     new Paddle();
 }
