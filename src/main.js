@@ -33,6 +33,19 @@ class Wall extends EngineObject {
     }
 }
 
+class Brick extends EngineObject {
+    constructor(pos, size) {
+        super(pos, size);
+        this.setCollision();
+        this.mass = 0;
+    }
+
+    collideWithObject(o) {
+        this.destroy();
+        return true; // make the collision still occur
+    }
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 function gameInit() {
     setCanvasFixedSize(vec2(1280, 720));
@@ -42,7 +55,7 @@ function gameInit() {
 
     for(let x = 2; x <= levelSize.x - 2; x += brickWidth) {
         for(let y = 12; y <= levelSize.y - 2; y += brickHeight) {
-            const brick = new EngineObject(vec2(x, y), vec2(brickWidth, brickHeight));
+            const brick = new Brick(vec2(x, y), vec2(brickWidth, brickHeight));
             brick.color = randColor();
         }
     }
