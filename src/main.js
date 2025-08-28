@@ -1,6 +1,7 @@
-import { engineInit, EngineObject, vec2, randColor, cameraPos, canvasFixedSize, drawRect, Color, mousePos, clamp, setCameraPos, setCanvasFixedSize } from "littlejsengine";
+import { engineInit, EngineObject, vec2, randColor, cameraPos, drawRect, Color, mousePos, clamp, setCameraPos, setCanvasFixedSize } from "littlejsengine";
 
 const levelSize = vec2(38, 20);
+let ball;
 
 class Paddle extends EngineObject {
     constructor() {
@@ -63,7 +64,6 @@ function gameInit() {
     setCameraPos(levelSize.scale(0.5));
 
     new Paddle();
-    new Ball(cameraPos);
     new Wall(vec2(-0.5, levelSize.y / 2), vec2(1, 100)); // left
     new Wall(vec2(levelSize.x / 2, levelSize.y + 0.75), vec2(100, 1)); // top
     new Wall(vec2(levelSize.x + 0.5, levelSize.y), vec2(1, 100)); // right
@@ -76,6 +76,14 @@ function gameUpdate()
     // handle input and update the game state
     // drawRect(cameraPos, vec2(100, 100), new Color(0.3, 0.3, 0.3));
     drawRect(cameraPos, levelSize, new Color(0, 0, 0));
+
+    if(!ball || ball.pos.y <= 0) {
+        if(ball) {
+            ball.destroy();
+        }
+
+        ball = new Ball(cameraPos);
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
